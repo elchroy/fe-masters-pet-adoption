@@ -9,11 +9,17 @@
   ],
 
   "rules": {
-    "react/prop-types": 0,
-    "no-console": 1
+    "react/prop-types": 0, // 0 means turn-off
+    "no-console": 1, // 1 means warn
+
+    // check rules of Hooks, you can also use 2 here -> "react-hooks/rules-of-hooks": 2
+    "react-hooks/rules-of-hooks": "error", // 2 means error
+
+    // checks effect dependencies
+    "react-hooks/exhaustive-deps": "warn" // you can use 1 here
   },
 
-  "plugins": ["react", "import", "jsx-a11y"],
+  "plugins": ["react", "import", "jsx-a11y", "react-hooks"],
 
   "parserOptions": {
     "ecmaVersion": 2018,
