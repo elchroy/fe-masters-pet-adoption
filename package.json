@@ -33,6 +33,10 @@
   ],
   "homepage": "https://github.com/elchroy/fe-masters-pet-adoption#readme",
   "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.3",
     "cross-env": "^5.2.1",
     "eslint": "^6.3.0",
