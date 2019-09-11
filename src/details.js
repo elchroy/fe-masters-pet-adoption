@@ -33,7 +33,7 @@ class Details extends React.Component {
         breed: animal.breeds.primary,
         loading: false
       });
-    }, console.error);
+    });
   }
 
   render() {
