@@ -1,6 +1,8 @@
 import React from "react";
 import pet from "@frontendmasters/pet";
 import Carousel from "./Carousel";
+import ErrorBoundary from "./ErrorBoundary";
+import { DEFAULT_ECDH_CURVE } from "tls";
 
 class Details extends React.Component {
   // here props are readonly
@@ -19,6 +21,7 @@ class Details extends React.Component {
   state = { loading: true };
 
   componentDidMount() {
+    throw new Error("lol");
     // this is very similar to useEffect.
     // It runs on the first start up.
     pet.animal(this.props.id).then(({ animal }) => {
@@ -55,4 +58,10 @@ class Details extends React.Component {
   }
 }
 
-export default Details;
+const DetailsWithErrorBoundary = props => (
+  <ErrorBoundary>
+    <Details {...props} />
+  </ErrorBoundary>
+);
+
+export default DetailsWithErrorBoundary;
