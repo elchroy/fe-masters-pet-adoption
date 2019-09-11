@@ -6,7 +6,7 @@ import Details from "./Details";
 import ThemeContext from "./ThemeContext";
 
 const App = () => {
-  const themeHook = useState("darkBlue"); // [state, stateUpdater]
+  const themeHook = useState("peru"); // [state, stateUpdater]
   return (
     // Using the ThemeContext.Provider provides the given value (themeHook),
     // and makes it available to every child component inside this component, as a global app state

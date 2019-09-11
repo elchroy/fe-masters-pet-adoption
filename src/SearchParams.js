@@ -12,7 +12,6 @@ const SearchParams = () => {
   const [breed, BreedDropDown, setBreed] = useDropdown("Breed", "", breeds);
   const [pets, setPets] = useState([]);
   const [theme] = useContext(ThemeContext);
-  console.log(theme, "hihihihi");
 
   const requestPets = async () => {
     const { animals } = await pet.animals({
@@ -32,7 +31,7 @@ const SearchParams = () => {
     setBreed("");
     pet.breeds(animal).then(({ breeds: apiBreeds }) => {
       setBreeds(apiBreeds.map(({ name }) => name));
-    }, console.error);
+    });
     // To understand the effects, read this: https://reactjs.org/docs/hooks-effect.html
   }, [setBreed, animal]);
 
