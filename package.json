@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
+    "dev:mock": "cross-env PET_MOCK=mock npm run dev",
     "format": "prettier \"./src/**/*.{js,html}\" --write",
     "lint": "eslint \"./src/**/*.{js,jsx}\" --quiet",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,9 +20,21 @@
   "bugs": {
     "url": "https://github.com/elchroy/fe-masters-pet-adoption/issues"
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 ChromeAndroid versions",
+    "last 2 Firefox versions",
+    "last 2 FirefoxAndroid versions",
+    "last 2 Safari versions",
+    "last 2 iOS versions",
+    "last 2 Edge versions",
+    "last 2 Opera versions",
+    "last 2 OperaMobile versions"
+  ],
   "homepage": "https://github.com/elchroy/fe-masters-pet-adoption#readme",
   "devDependencies": {
     "babel-eslint": "^10.0.3",
+    "cross-env": "^5.2.1",
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^6.2.0",
     "eslint-plugin-import": "^2.18.2",

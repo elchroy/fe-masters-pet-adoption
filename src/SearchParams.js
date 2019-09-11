@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
+// import { request } from "https";
+import Results from "./Results";
 
 const SearchParams = () => {
   // Something to note: React hooks should never go into if statements, for or while loops
@@ -8,6 +10,17 @@ const SearchParams = () => {
   const [breeds, setBreeds] = useState([]);
   const [animal, AnimalDropDown] = useDropdown("Animal", "dog", ANIMALS);
   const [breed, BreedDropDown, setBreed] = useDropdown("Breed", "", breeds);
+  const [pets, setPets] = useState([]);
+
+  const requestPets = async () => {
+    const { animals } = await pet.animals({
+      location,
+      breed,
+      type: animal
+    });
+
+    setPets(animals || []);
+  };
 
   useEffect(() => {
     // this is going to schedule the given
@@ -23,7 +36,12 @@ const SearchParams = () => {
 
   return (
     <div className="search-params">
-      <form action="">
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          requestPets();
+        }}
+      >
         <label htmlFor="location">
           Location:
           <input
@@ -40,6 +58,8 @@ const SearchParams = () => {
 
         <button>Submit</button>
       </form>
+
+      <Results pets={pets} />
     </div>
   );
 };
