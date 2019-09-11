@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
-// import { request } from "https";
 import Results from "./Results";
+import ThemeContext from "./ThemeContext";
 
 const SearchParams = () => {
   // Something to note: React hooks should never go into if statements, for or while loops
@@ -11,6 +11,8 @@ const SearchParams = () => {
   const [animal, AnimalDropDown] = useDropdown("Animal", "dog", ANIMALS);
   const [breed, BreedDropDown, setBreed] = useDropdown("Breed", "", breeds);
   const [pets, setPets] = useState([]);
+  const [theme] = useContext(ThemeContext);
+  console.log(theme, "hihihihi");
 
   const requestPets = async () => {
     const { animals } = await pet.animals({
@@ -56,7 +58,13 @@ const SearchParams = () => {
         <AnimalDropDown />
         <BreedDropDown />
 
-        <button>Submit</button>
+        <button
+          style={{
+            backgroundColor: theme
+          }}
+        >
+          Submit
+        </button>
       </form>
 
       <Results pets={pets} />
