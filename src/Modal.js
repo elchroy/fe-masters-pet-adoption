@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
+// Modals can also be used for things like: contextual navigation
+// special header/footer, etc
 const Modal = ({ children }) => {
   // read about this
   // I'm going to create an element and
