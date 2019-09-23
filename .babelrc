@@ -1,4 +1,8 @@
 {
-  "presets": ["@babel/preset-react", "@babel/preset-env"],
+  "presets": [
+    "@babel/preset-react",
+    // https://github.com/facebook/jest/issues/7579#issuecomment-457069424
+    ["@babel/preset-env", { "targets": { "node": "current" } }]
+  ],
   "plugins": ["@babel/plugin-proposal-class-properties"]
 }
