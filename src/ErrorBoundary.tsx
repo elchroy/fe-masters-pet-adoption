@@ -2,29 +2,30 @@
 // use this class to handle error, only passing
 // through if there are no error, for example in an API request.
 
-import React, { Component } from "react";
+import React, { Component, ErrorInfo } from "react";
 import { Link, Redirect } from "@reach/router";
 
 class ErrorBoundary extends Component {
-  state = { hasError: false, redirect: false };
+  public state = { hasError: false, redirect: false };
 
-  static getDerivedStateFromError() {
+  public static getDerivedStateFromError() {
     // this gets called whenever there is an error inside of the component.
     return { hasError: true };
   }
 
-  componentDidUpdate() {
+  public componentDidUpdate() {
     // this will run every single time the component receives new state or new props
     // it will run whenever the prop or state changes.
-    if (this.state.hasError)
+    if (this.state.hasError) {
       setTimeout(() => this.setState({ redirect: true }), 5000);
+    }
   }
 
-  componentDidCatch(error, info) {
+  public componentDidCatch(error: Error, info: ErrorInfo) {
     console.error("ErrorBoundary caught an error: ", error, info);
   }
 
-  render() {
+  public render() {
     if (this.state.redirect) {
       return <Redirect to="/" />;
     }

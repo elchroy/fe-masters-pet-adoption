@@ -1,12 +1,12 @@
 import React from "react";
-import pet from "@frontendmasters/pet";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
-import ThemeContext from "./ThemeContext";
-import { navigate } from "@reach/router";
+import { navigate, RouteComponentProps } from "@reach/router";
 import Modal from "./Modal";
+import pet, { Photo } from "@frontendmasters/pet";
+import ThemeContext from "./ThemeContext";
 
-class Details extends React.Component {
+class Details extends React.Component<RouteComponentProps<{ id: string }>> {
   // here props are readonly
 
   // constructor(props) {
@@ -20,31 +20,51 @@ class Details extends React.Component {
   // After insalling: babel-eslint @babel/core @babel/preset-env @babel/plugin-proposal-class-properties @babel/preset-react
   // we can use this instead
   // this is only enabled by the babel-proposal-class-properties plugin
-  state = { loading: true, showModal: false };
+  public state = {
+    loading: true,
+    showModal: false,
+    url: "",
+    animal: "",
+    breed: "",
+    location: "",
+    description: "",
+    name: "",
+    media: [] as Photo[]
+  };
 
-  componentDidMount() {
+  public componentDidMount() {
+    if (!this.props.id) {
+      navigate("/");
+      return;
+    }
     // this is very similar to useEffect.
     // It runs on the first start up.
-    pet.animal(this.props.id).then(({ animal }) => {
-      this.setState({
-        url: animal.url,
-        name: animal.name,
-        animal: animal.type,
-        location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
-        description: animal.description,
-        media: animal.photos,
-        breed: animal.breeds.primary,
-        loading: false
+    pet
+      .animal(+this.props.id)
+      .then(({ animal }) => {
+        this.setState({
+          url: animal.url,
+          name: animal.name,
+          animal: animal.type,
+          location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
+          description: animal.description,
+          media: animal.photos,
+          breed: animal.breeds.primary,
+          loading: false
+        });
+      })
+      .catch((error: Error) => {
+        this.setState({ error });
       });
-    });
   }
 
-  toggleModal = () => this.setState({ showModal: !this.state.showModal });
+  public toggleModal = () =>
+    this.setState({ showModal: !this.state.showModal });
 
   // this could have also been done with the redirect as well
-  adopt = () => navigate(this.state.url);
+  public adopt = () => navigate(this.state.url);
 
-  render() {
+  public render() {
     if (this.state.loading) {
       return <h1>loading...</h1>;
     }
@@ -55,12 +75,13 @@ class Details extends React.Component {
       location,
       description,
       name,
-      showModal
+      showModal,
+      media
     } = this.state;
 
     return (
       <div className="details">
-        <Carousel media={this.state.media} />
+        <Carousel media={media} />
         <div>
           <h1>{name}</h1>
           <h2>{`${animal} - ${breed} - ${location}`}</h2>
@@ -90,7 +111,9 @@ class Details extends React.Component {
   }
 }
 
-const DetailsWithErrorBoundary = props => (
+const DetailsWithErrorBoundary = (
+  props: RouteComponentProps<{ id: string }>
+) => (
   <ErrorBoundary>
     <Details {...props} />
   </ErrorBoundary>

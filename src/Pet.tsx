@@ -1,8 +1,19 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Link } from "@reach/router";
+import { Photo } from "@frontendmasters/pet";
 
-const Pet = ({ name, animal, breed, media, location, id }) => {
-  let hero = media.length ? media[0].small : `http://placecorgi.com/300/300`;
+interface IProps {
+  name: string;
+  breed: string;
+  media: Photo[];
+  location: string;
+  id: number;
+  animal: string;
+}
+
+const Pet: FunctionComponent<IProps> = props => {
+  const { name, animal, breed, media, location, id } = props;
+  const hero = media.length ? media[0].small : `http://placecorgi.com/300/300`;
 
   // previously we used a-tag here and the theme context was not being updated here
   // We then had to change to the Link tag.
